@@ -4,19 +4,10 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="1c89fae9-ed70-41b1-a9f8-8696309144e9" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/modules.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/SimpleAssemblerProject.iml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/pepasm.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/pepasm.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/program1.pep" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/program2.pep" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/program3.pep" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/program4.pep" afterDir="false" />
+    <list default="true" id="1c89fae9-ed70-41b1-a9f8-8696309144e9" name="Changes" comment="good progress">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pepasm.class" beforeDir="false" afterPath="$PROJECT_DIR$/src/pepasm.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pepasm.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/pepasm.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -33,9 +24,9 @@
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
-  <component name="ProjectColorInfo"><![CDATA[{
-  "associatedIndex": 6
-}]]></component>
+  <component name="ProjectColorInfo">{
+  &quot;associatedIndex&quot;: 6
+}</component>
   <component name="ProjectId" id="2nEGGD3EDAYFd72YpH16Zt9Okln" />
   <component name="ProjectLevelVcsManager" settingsEditedManually="true">
     <ConfirmationsSetting value="2" id="Add" />
@@ -44,15 +35,16 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "ASKED_ADD_EXTERNAL_FILES": "true",
-    "Application.FileRead.executor": "Run",
-    "Application.pepasm.executor": "Run",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "kotlin-language-version-configured": "true"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;ASKED_ADD_EXTERNAL_FILES&quot;: &quot;true&quot;,
+    &quot;Application.FileRead.executor&quot;: &quot;Run&quot;,
+    &quot;Application.pepasm.executor&quot;: &quot;Run&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;ignore.virus.scanning.warn.message&quot;: &quot;true&quot;,
+    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;
   }
-}]]></component>
+}</component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
@@ -62,6 +54,15 @@
       <option name="presentableId" value="Default" />
       <updated>1728530723882</updated>
     </task>
+    <task id="LOCAL-00001" summary="good progress">
+      <option name="closed" value="true" />
+      <created>1728540976502</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1728540976502</updated>
+    </task>
+    <option name="localTasksCounter" value="2" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -77,5 +78,7 @@
   </component>
   <component name="VcsManagerConfiguration">
     <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
+    <MESSAGE value="good progress" />
+    <option name="LAST_COMMIT_MESSAGE" value="good progress" />
   </component>
 </project>
