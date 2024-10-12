@@ -17,28 +17,29 @@ public class pepasm {
         String filePath = args[0]; // Get filename from command-line/terminal arguments
         List<String> output = new ArrayList<>();
 
-        try (BufferedReader reader = new BufferedReader(new FileReader(filePath))) { //this reader allows to read line by line
+        try (BufferedReader reader = new BufferedReader(new FileReader(filePath))) { //This reader allows to read line by line
             String line;
 
-            while ((line = reader.readLine()) != null) { //continues reading each line while there are still lines to read
+            while ((line = reader.readLine()) != null) { //Continues reading each line while there are still lines to read
 
-                if(line.trim().isEmpty()) continue; //prevents the reader from stopping if there is a word/space that doesn't have any information
+                if(line.trim().isEmpty()) continue; //Prevents the reader from stopping if there is a word/space that doesn't have any information
 
-                String[] words = line.split(" "); //divides lines by spaces, creating words
+                String[] words = line.split(" "); //Divides lines by spaces, creating words
 
                 //Sets variables
                 String instruction = words[0];
                 String addressingMode = "";
-                String address;
+                String address = "";
 
                 if (words.length > 1) {
-                    address = words[1].replace(",", ""); //removes the comma so that it doesn't show up in the output
+                    address = words[1].replace(",", ""); //Removes the comma so that it doesn't show up in the output
                     if (words.length > 2) {
                         addressingMode = words[2];
                     }
 
 
                     String opcode;
+                    //Translates PEP to machine code.
                     switch (instruction) {
                         case "LDBA":
                             opcode = ("D");
@@ -70,35 +71,44 @@ public class pepasm {
                             opcode = ("00");
                             output.add(opcode);
                             continue;
+                        case "CPBA": //Compare byte accumulator
+                            //opcode = ("9");
+                            opcode = ("B");
+                            break;
+                        case "BRNE": //Branch not equal
+                            //opcode = ("4");
+                            opcode = ("1A");
+                            break;
                         case ".END":
+                            //output.add("00");
                             output.add("zz");
                             continue;
                         default:
-                            System.out.println("error");
+                            System.out.println("Error");
                             continue;
                     }
 
-                    // Determine the opcode based on addressing mode
+                    //Determine the opcode based on addressing mode
                     if (addressingMode.equals("i")) {
                         output.add(opcode + "0"); // Immediate mode
                     } else if (addressingMode.equals("d")) {
                         output.add(opcode + "1"); // Direct mode
-                    } else{
-                        output.add(opcode); //no addressing mode: ASLA, ASRA, STOP, .END
+                    } else {
+                        output.add(opcode); // No addressing mode: ASLA, ASRA, STOP, .END
                     }
 
 
                     //Addressing modes
                     if (address.startsWith("0x")) {
                         String hexAddress = address.substring(2);
-                        if (hexAddress.length() == 4) {
-                            output.add(hexAddress.substring(0, 2)); // High byte
-                            output.add(hexAddress.substring(2));    // Low byte
-                        }
+                        hexAddress = String.format("%4s", hexAddress).replace(' ','0');
+                        output.add(hexAddress.substring(0, 2)); // High byte (First 2 digits)
+                        output.add(hexAddress.substring(2));    // Low byte (Last 2 digits)
                     }
                 }
             }
-        } catch (IOException e) {
+
+        } catch (IOException e) { //Handles file reading exceptions
             throw new RuntimeException(e);
         }
         System.out.println(String.join(" ", output));
