@@ -1,0 +1,109 @@
+Index: src/pepasm.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>import java.io.BufferedReader;\r\nimport java.io.FileReader;\r\nimport java.io.IOException;\r\nimport java.util.ArrayList;\r\nimport java.util.List;\r\n\r\n\r\npublic class pepasm {\r\n    public static void main(String[] args) {\r\n        if (args.length < 1) { //args is from terminal, this takes program1.pep, program2.pep, etc...\r\n            System.out.println(\"java pepasm <filename>\");\r\n            return;\r\n        }\r\n\r\n        //output should just be a System.out.println();\r\n\r\n        String filePath = args[0]; // Get filename from command-line/terminal arguments\r\n        List<String> output = new ArrayList<>();\r\n\r\n        try (BufferedReader reader = new BufferedReader(new FileReader(filePath))) { //this reader allows to read line by line\r\n            String line;\r\n\r\n            while ((line = reader.readLine()) != null) { //continues reading each line while there are still lines to read\r\n\r\n                if(line.trim().isEmpty()) continue; //prevents the reader from stopping if there is a word/space that doesn't have any information\r\n\r\n                String[] words = line.split(\" \"); //divides lines by spaces, creating words\r\n\r\n                //Sets variables\r\n                String instruction = words[0];\r\n                String addressingMode = \"\";\r\n                String address;\r\n\r\n                if (words.length > 1) {\r\n                    address = words[1].replace(\",\", \"\"); //removes the comma so that it doesn't show up in the output\r\n                    if (words.length > 2) {\r\n                        addressingMode = words[2];\r\n                    }\r\n\r\n\r\n                    String opcode;\r\n                    switch (instruction) {\r\n                        case \"LDBA\":\r\n                            opcode = (\"D\");\r\n                            break;\r\n                        case \"STBA\":\r\n                            opcode = (\"F\");\r\n                            break;\r\n                        case \"STWA\":\r\n                            opcode = (\"E\");\r\n                            break;\r\n                        case \"LDWA\":\r\n                            opcode = (\"C\");\r\n                            break;\r\n                        case \"ANDA\":\r\n                            opcode = (\"8\");\r\n                            break;\r\n                        case \"ADDA\":\r\n                            opcode = (\"6\");\r\n                            break;\r\n                        case \"ASLA\":\r\n                            opcode = (\"0A\");\r\n                            output.add(opcode);\r\n                            continue;\r\n                        case \"ASRA\":\r\n                            opcode = (\"0C\");\r\n                            output.add(opcode);\r\n                            continue;\r\n                        case \"STOP\":\r\n                            opcode = (\"00\");\r\n                            output.add(opcode);\r\n                            continue;\r\n                        case \".END\":\r\n                            output.add(\"zz\");\r\n                            continue;\r\n                        default:\r\n                            System.out.println(\"error\");\r\n                            continue;\r\n                    }\r\n\r\n                    // Determine the opcode based on addressing mode\r\n                    if (addressingMode.equals(\"i\")) {\r\n                        output.add(opcode + \"0\"); // Immediate mode\r\n                    } else if (addressingMode.equals(\"d\")) {\r\n                        output.add(opcode + \"1\"); // Direct mode\r\n                    } else{\r\n                        output.add(opcode); //no addressing mode: ASLA, ASRA, STOP, .END\r\n                    }\r\n\r\n\r\n                    //Addressing modes\r\n                    if (address.startsWith(\"0x\")) {\r\n                        String hexAddress = address.substring(2);\r\n                        if (hexAddress.length() == 4) {\r\n                            output.add(hexAddress.substring(0, 2)); // High byte\r\n                            output.add(hexAddress.substring(2));    // Low byte\r\n                        }\r\n                    }\r\n                }\r\n            }\r\n        } catch (IOException e) {\r\n            throw new RuntimeException(e);\r\n        }\r\n        System.out.println(String.join(\" \", output));\r\n    }\r\n}\r\n\r\n\r\n\r\n\r\n//To run code in terminal, do cd \"path/to/src\" -> javac pepasm.java -> java pepasm program1.pep\r\n\r\n\r\n//LDBA 0x0048, i ------ would be = D0 00 48 ---- LDBA = D, i = 0, 0x0048 = 00 48\r\n//Program should read LDBA then print first letter 'D' next it should read 0x0048 then put it in a variable next read i and print, then print the variable for 0x0048\\\r\n\r\n//following code takes the instruction and adds the machine language equivalent to the output array\r\n//reading the hex code address should be easy, given 0x1234, take out 1234 and output it as 12 34,\r\n//an instruction line is like so: <instruction> <address><,>< ><addressing mode>\r\n//Maybe add all outputs to variables and assemble an output line at the end of reading a line
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/pepasm.java b/src/pepasm.java
+--- a/src/pepasm.java	
++++ b/src/pepasm.java	
+@@ -12,19 +12,16 @@
+             return;
+         }
+ 
+-        //output should just be a System.out.println();
+-
+         String filePath = args[0]; // Get filename from command-line/terminal arguments
+         List<String> output = new ArrayList<>();
+-
+-        try (BufferedReader reader = new BufferedReader(new FileReader(filePath))) { //this reader allows to read line by line
++        try (BufferedReader reader = new BufferedReader(new FileReader(filePath))) { //This reader allows to read line by line
+             String line;
+ 
+-            while ((line = reader.readLine()) != null) { //continues reading each line while there are still lines to read
++            while ((line = reader.readLine()) != null) { //Continues reading each line while there are still lines to read
+ 
+-                if(line.trim().isEmpty()) continue; //prevents the reader from stopping if there is a word/space that doesn't have any information
++                if(line.trim().isEmpty()) continue; //Prevents the reader from stopping if there is a word/space that doesn't have any information
+ 
+-                String[] words = line.split(" "); //divides lines by spaces, creating words
++                String[] words = line.split(" "); //Divides lines by spaces, creating words
+ 
+                 //Sets variables
+                 String instruction = words[0];
+@@ -32,13 +29,14 @@
+                 String address;
+ 
+                 if (words.length > 1) {
+-                    address = words[1].replace(",", ""); //removes the comma so that it doesn't show up in the output
++                    address = words[1].replace(",", ""); //Removes the comma so that it doesn't show up in the output
+                     if (words.length > 2) {
+                         addressingMode = words[2];
+                     }
+ 
+ 
+                     String opcode;
++                    //Translates PEP to machine code.
+                     switch (instruction) {
+                         case "LDBA":
+                             opcode = ("D");
+@@ -70,15 +68,21 @@
+                             opcode = ("00");
+                             output.add(opcode);
+                             continue;
++                        case "CPBA": //Compare byte accumulator
++                            opcode = ("9");
++                            break;
++                        case "BRNE": //Branch not equal
++                            opcode = ("4");
++                            break;
+                         case ".END":
+                             output.add("zz");
+                             continue;
+                         default:
+-                            System.out.println("error");
++                            System.out.println("Error: Unknown Instruction'"+ instruction+"'");
+                             continue;
+                     }
+ 
+-                    // Determine the opcode based on addressing mode
++                    //Determine the opcode based on addressing mode
+                     if (addressingMode.equals("i")) {
+                         output.add(opcode + "0"); // Immediate mode
+                     } else if (addressingMode.equals("d")) {
+@@ -92,13 +96,14 @@
+                     if (address.startsWith("0x")) {
+                         String hexAddress = address.substring(2);
+                         if (hexAddress.length() == 4) {
+-                            output.add(hexAddress.substring(0, 2)); // High byte
+-                            output.add(hexAddress.substring(2));    // Low byte
++                            output.add(hexAddress.substring(0, 2)); // High byte (First 2 digits)
++                            output.add(hexAddress.substring(2));    // Low byte (Last 2 digits)
+                         }
+                     }
+                 }
+             }
+-        } catch (IOException e) {
++
++        } catch (IOException e) { //Handles file reading exceptions
+             throw new RuntimeException(e);
+         }
+         System.out.println(String.join(" ", output));
+@@ -117,4 +122,15 @@
+ //following code takes the instruction and adds the machine language equivalent to the output array
+ //reading the hex code address should be easy, given 0x1234, take out 1234 and output it as 12 34,
+ //an instruction line is like so: <instruction> <address><,>< ><addressing mode>
++//Maybe add all outputs to variables and assemble an output line at the end of reading a line
++
++//To run code in terminal, do cd "path/to/src" -> javac pepasm.java -> java pepasm program1.pep
++
++
++//LDBA 0x0048, i ------ would be = D0 00 48 ---- LDBA = D, i = 0, 0x0048 = 00 48
++//Program should read LDBA then print first letter 'D' next it should read 0x0048 then put it in a variable next read i and print, then print the variable for 0x0048\
++
++//following code takes the instruction and adds the machine language equivalent to the output array
++//reading the hex code address should be easy, given 0x1234, take out 1234 and output it as 12 34,
++//an instruction line is like so: <instruction> <address><,>< ><addressing mode>
+ //Maybe add all outputs to variables and assemble an output line at the end of reading a line
+\ No newline at end of file
